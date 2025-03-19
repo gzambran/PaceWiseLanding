@@ -71,6 +71,7 @@ header .container {
 .logo {
     height: 40px;
     width: auto;
+    object-fit: contain;
 }
 
 .download-btn {
@@ -398,6 +399,7 @@ footer .container {
 .logo-small {
     height: 30px;
     width: auto;
+    object-fit: contain;
 }
 
 .footer-links {
