@@ -7,43 +7,63 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        .privacy-content {
+        .privacy-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px 24px;
+            padding: 80px 24px;
         }
         
-        .privacy-content h1 {
+        .privacy-header {
+            margin-bottom: 40px;
+        }
+        
+        .privacy-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
         
-        .privacy-content p {
-            margin-bottom: 1.5rem;
-            color: var(--text);
+        .effective-date {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 24px;
         }
         
-        .privacy-content h2 {
+        .privacy-section {
+            margin-bottom: 40px;
+        }
+        
+        .privacy-section h2 {
             font-size: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
         }
         
-        .privacy-content strong {
+        .privacy-section p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .privacy-section strong {
             font-weight: 600;
+            color: var(--text-primary);
         }
         
         .back-link {
-            display: inline-block;
-            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
             color: var(--primary);
             font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.2s ease;
         }
         
         .back-link:hover {
-            text-decoration: underline;
+            transform: translateX(-5px);
         }
     </style>
 </head>
@@ -55,41 +75,61 @@
                 <span>PaceWise</span>
             </div>
             <div class="header-cta">
-                <a href="#" class="btn btn-primary">Coming to App Store</a>
+                <a href="#" class="btn btn-outline">Coming to App Store</a>
             </div>
         </div>
     </header>
 
-    <div class="privacy-content">
-        <h1>Privacy Policy for PaceWise</h1>
-        <p><strong>Effective Date:</strong> March 19, 2025</p>
-        
-        <p>PaceWise ("we," "our," or "the App") is a running calculator designed to assist users in calculating running paces, splits, and training intervals. We are committed to protecting your privacy. This Privacy Policy explains how we handle your data.</p>
-        
-        <h2>1. Data Collection</h2>
-        <p>PaceWise <strong>does not collect any personally identifiable information</strong> or track any activity related to its users. The app operates entirely offline, and no personal data is transmitted to any third-party services.</p>
-        
-        <h2>2. Saved Data</h2>
-        <p>When you use the app, you have the option to save your calculations. By default, these calculations are saved with a name based on the distance and pace. You may delete your saved calculations at any time directly from the app on your device. These saved calculations are stored locally on your device and are not shared or transmitted to any external servers.</p>
-        
-        <h2>3. No User Tracking</h2>
-        <p>We do not use cookies, web beacons, or any other tracking technologies to monitor or collect your personal data. We do not track your usage patterns, nor do we gather any other data related to your device or location.</p>
-        
-        <h2>4. Data Security</h2>
-        <p>Since PaceWise does not collect or transmit any personal data, there are no security risks related to data storage or sharing within the app. Your saved calculations are only accessible on your device.</p>
-        
-        <h2>5. Third-Party Services</h2>
-        <p>PaceWise does not use third-party services that collect or process user data.</p>
-        
-        <h2>6. Changes to This Policy</h2>
-        <p>We may update this Privacy Policy from time to time to reflect changes in our app or legal requirements. Any changes will be posted here with an updated effective date.</p>
-        
-        <h2>7. Contact Information</h2>
-        <p>If you have any questions or concerns about this Privacy Policy, please contact us at:</p>
-        <p>📧 <strong>Email:</strong> contact@pacewise.app</p>
-        
-        <a href="index.html" class="back-link">← Back to Home</a>
-    </div>
+    <main>
+        <div class="privacy-container">
+            <div class="privacy-header">
+                <h1>Privacy Policy</h1>
+                <p class="effective-date">Effective Date: March 19, 2025</p>
+                <p>PaceWise ("we," "our," or "the App") is a running calculator designed to assist users in calculating running paces, splits, and training intervals. We are committed to protecting your privacy. This Privacy Policy explains how we handle your data.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>1. Data Collection</h2>
+                <p>PaceWise <strong>does not collect any personally identifiable information</strong> or track any activity related to its users. The app operates entirely offline, and no personal data is transmitted to any third-party services.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>2. Saved Data</h2>
+                <p>When you use the app, you have the option to save your calculations. By default, these calculations are saved with a name based on the distance and pace. You may delete your saved calculations at any time directly from the app on your device. These saved calculations are stored locally on your device and are not shared or transmitted to any external servers.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>3. No User Tracking</h2>
+                <p>We do not use cookies, web beacons, or any other tracking technologies to monitor or collect your personal data. We do not track your usage patterns, nor do we gather any other data related to your device or location.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>4. Data Security</h2>
+                <p>Since PaceWise does not collect or transmit any personal data, there are no security risks related to data storage or sharing within the app. Your saved calculations are only accessible on your device.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>5. Third-Party Services</h2>
+                <p>PaceWise does not use third-party services that collect or process user data.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>6. Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time to reflect changes in our app or legal requirements. Any changes will be posted here with an updated effective date.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>7. Contact Information</h2>
+                <p>If you have any questions or concerns about this Privacy Policy, please contact us at:</p>
+                <p>📧 <strong>Email:</strong> contact@pacewise.app</p>
+            </div>
+            
+            <a href="index.html" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                Back to Home
+            </a>
+        </div>
+    </main>
 
     <footer>
         <div class="container">
