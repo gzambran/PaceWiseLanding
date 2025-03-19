@@ -115,6 +115,26 @@ p {
     border-radius: 10px;
 }
 
+/* Down arrow */
+.scroll-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.scroll-arrow:hover {
+    transform: translateY(5px);
+}
+
+.scroll-arrow svg {
+    width: 36px;
+    height: 36px;
+    stroke-width: 2px;
+}
+
 /* Header */
 header {
     padding: 24px 0;
@@ -350,64 +370,6 @@ header .container {
     color: var(--text-secondary);
 }
 
-/* App preview section */
-.app-preview {
-    padding: 120px 0;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: white;
-}
-
-.app-preview .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 60px;
-}
-
-.app-preview-content {
-    flex: 1;
-    max-width: 500px;
-}
-
-.app-preview-content h2,
-.app-preview-content p {
-    color: white;
-}
-
-.app-preview-content h2 {
-    font-size: 3rem;
-    margin-bottom: 24px;
-}
-
-.app-preview-content p {
-    font-size: 1.25rem;
-    margin-bottom: 32px;
-    opacity: 0.9;
-}
-
-.app-preview-content .btn-primary {
-    background-color: white;
-    color: var(--primary);
-    padding: 16px 36px;
-    font-size: 1.1rem;
-}
-
-.app-preview-content .btn-primary:hover {
-    background-color: #f0f0f0;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.app-preview-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.app-preview .phone {
-    transform: rotate(-10deg) translateY(-20px);
-}
-
 /* Footer */
 footer {
     padding: 80px 0 40px;
@@ -473,24 +435,17 @@ footer .container {
         font-size: 2rem;
     }
     
-    .hero .container, 
-    .app-preview .container {
+    .hero .container {
         flex-direction: column;
         text-align: center;
     }
     
-    .hero-content, 
-    .app-preview-content {
+    .hero-content {
         max-width: 100%;
     }
     
     .features-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-    
-    .app-preview .phone {
-        transform: none;
-        margin-top: 40px;
     }
 }
 
@@ -531,8 +486,7 @@ footer .container {
         font-size: 1.75rem;
     }
     
-    .hero, 
-    .app-preview {
+    .hero {
         padding: 80px 0;
     }
     
