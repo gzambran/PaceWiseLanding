@@ -66,12 +66,22 @@ header .container {
 .logo-container {
     display: flex;
     align-items: center;
+    gap: 10px;
+}
+
+.logo-container h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 700;
+    color: var(--text-dark);
 }
 
 .logo {
     height: 40px;
     width: auto;
     object-fit: contain;
+    background: transparent;
+    border: none;
 }
 
 .download-btn {
@@ -206,7 +216,7 @@ header .container {
     border-radius: 40px;
     padding: 12px;
     box-shadow: 0 50px 100px rgba(0, 0, 0, 0.15);
-    transform: rotate(-5deg);
+    transform: rotate(0deg);
 }
 
 .device-frame:before {
@@ -400,6 +410,8 @@ footer .container {
     height: 30px;
     width: auto;
     object-fit: contain;
+    background: transparent;
+    border: none;
 }
 
 .footer-links {
