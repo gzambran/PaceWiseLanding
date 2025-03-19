@@ -165,16 +165,47 @@ header .container {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.mockup-container {
+.phone-mockup {
     position: relative;
-    max-width: 100%;
-    height: auto;
+    width: 280px;
+    height: 560px;
+    margin: 0 auto;
+    background-color: #1E1F23;
+    border-radius: 36px;
+    padding: 10px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid #333;
+    position: relative;
 }
 
-.mockup-svg {
-    max-width: 100%;
-    height: auto;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+.phone-mockup:before {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 25px;
+    background: #1E1F23;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    z-index: 1;
+}
+
+.phone-screen {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #4C7CFF;
+    font-weight: 500;
+    line-height: 1.5;
 }
 
 .notify-container {
@@ -240,7 +271,7 @@ header .container {
 /* Use Cases Section */
 .use-cases {
     padding: 80px 0;
-    background-color: var(--background-alt);
+    background-color: white;
 }
 
 .use-case-grid {
@@ -251,17 +282,17 @@ header .container {
 }
 
 .use-case {
-    background-color: white;
+    background-color: var(--background-alt);
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
     border: 1px solid #EEEEEE;
 }
 
 .use-case:hover {
     transform: translateY(-5px);
-    border-left: 3px solid var(--secondary-color);
+    box-shadow: 0 12px 24px rgba(76, 124, 255, 0.1);
 }
 
 /* CTA Section */

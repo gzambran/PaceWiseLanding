@@ -24,13 +24,24 @@ To set up your custom domain:
      - 185.199.111.153
    - CNAME record from www to your username.github.io
 
-## Placeholder Images
+## Adding App Screenshots
 
-The logo has been included, but you'll need to:
-- Add an actual screenshot or mockup of your app when available
+The landing page has a placeholder for app screenshots in a phone mockup. To add real screenshots:
+
+1. Take screenshots of your app in action (ideally showing the main calculator interface)
+2. Size the screenshots to 260px wide by 540px tall for best fit
+3. Replace the placeholder phone-screen content in index.html with your screenshot:
+
+```html
+<div class="phone-screen">
+  <img src="app-screenshot.png" alt="PaceWise App in action">
+</div>
+```
 
 ## Color Scheme
 
-The color scheme has been updated to match your logo:
-- Primary: #40E0D0 (Teal)
-- Secondary: #FF7F50 (Coral/Orange)
+The color scheme has been updated to match your app:
+- Primary: #4C7CFF (Blue)
+- Secondary: #5B5E6B (Gray)
+- Background (light): #F5F7FA
+- Dark UI: #1E1F23
