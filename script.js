@@ -2,69 +2,142 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize carousel
     initCarousel();
+    
+    // Initialize theme toggle
+    initThemeToggle();
 });
 
 function initCarousel() {
-    // Create the dots first
-    const carousel = document.querySelector('.screenshot-carousel');
-    if (!carousel) return;
-    
-    const carouselItems = carousel.querySelectorAll('.carousel-item');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    
-    // Create dots based on number of items
-    carouselItems.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('active');
-        dot.setAttribute('data-index', index);
-        dotsContainer.appendChild(dot);
-    });
-    
-    // Initialize the slider with tiny-slider
-    let slider = tns({
-        container: '.screenshot-carousel',
-        items: 1,
-        slideBy: 'page',
-        autoplay: false,
-        controls: false,
-        nav: false,
+    // Initialize Swiper with external pagination element
+    const swiper = new Swiper('.screenshot-carousel', {
+        // Basic settings
+        slidesPerView: 1,
+        spaceBetween: 30,
         loop: true,
         speed: 400,
-        responsive: {
-            768: {
-                items: 1
+        centeredSlides: true,
+        
+        // Add pagination (dots) - using the external element
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        
+        // Use Swiper's built-in navigation
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        
+        // Improve performance
+        preloadImages: true,
+        updateOnImagesReady: true,
+    });
+}
+
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme) {
+        // Apply saved theme
+        body.setAttribute('data-theme', savedTheme);
+        updateScreenshots(savedTheme);
+    } else {
+        // Check system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = prefersDark ? 'dark' : 'light';
+        body.setAttribute('data-theme', initialTheme);
+        updateScreenshots(initialTheme);
+    }
+    
+    // Listen for system preference changes if no saved preference
+    if (!savedTheme) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            const newTheme = e.matches ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            updateScreenshots(newTheme);
+        });
+    }
+    
+    // Toggle theme when button is clicked
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        // Set the new theme with animation
+        body.classList.add('theme-transitioning');
+        body.setAttribute('data-theme', newTheme);
+        
+        // Remove transition class after animation completes
+        setTimeout(() => {
+            body.classList.remove('theme-transitioning');
+        }, 300); // Match var(--animation-medium)
+        
+        // Save preference to localStorage
+        localStorage.setItem('theme', newTheme);
+        
+        // Update screenshots based on theme
+        updateScreenshots(newTheme);
+    });
+}
+
+function updateScreenshots(theme) {
+    // Get all app screenshots
+    const screenshots = document.querySelectorAll('.app-screenshot');
+    
+    screenshots.forEach(screenshot => {
+        const src = screenshot.getAttribute('src');
+        
+        if (theme === 'dark') {
+            // Switch to dark mode screenshots
+            if (!src.includes('-dark')) {
+                const darkSrc = src.replace('.png', '-dark.png');
+                
+                // Create a new Image to preload
+                const img = new Image();
+                img.onload = function() {
+                    // Only swap the src after the new image has loaded
+                    screenshot.classList.add('screenshot-fading');
+                    
+                    // Set a timeout to match the fade-out transition
+                    setTimeout(() => {
+                        screenshot.setAttribute('src', darkSrc);
+                        
+                        // Wait a bit before fading back in
+                        setTimeout(() => {
+                            screenshot.classList.remove('screenshot-fading');
+                        }, 150);
+                    }, 150);
+                };
+                img.src = darkSrc;
+            }
+        } else {
+            // Switch to light mode screenshots
+            if (src.includes('-dark')) {
+                const lightSrc = src.replace('-dark.png', '.png');
+                
+                // Create a new Image to preload
+                const img = new Image();
+                img.onload = function() {
+                    // Only swap the src after the new image has loaded
+                    screenshot.classList.add('screenshot-fading');
+                    
+                    // Set a timeout to match the fade-out transition
+                    setTimeout(() => {
+                        screenshot.setAttribute('src', lightSrc);
+                        
+                        // Wait a bit before fading back in
+                        setTimeout(() => {
+                            screenshot.classList.remove('screenshot-fading');
+                        }, 150);
+                    }, 150);
+                };
+                img.src = lightSrc;
             }
         }
-    });
-    
-    // Add click events to previous and next buttons
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    
-    prevBtn.addEventListener('click', () => {
-        slider.goTo('prev');
-    });
-    
-    nextBtn.addEventListener('click', () => {
-        slider.goTo('next');
-    });
-    
-    // Add click events to dots
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            const index = parseInt(dot.getAttribute('data-index'));
-            slider.goTo(index);
-        });
-    });
-    
-    // Update active dot when slide changes
-    slider.events.on('indexChanged', info => {
-        const currentIndex = info.index % carouselItems.length;
-        dots.forEach(dot => {
-            dot.classList.remove('active');
-        });
-        dots[currentIndex].classList.add('active');
     });
 }
