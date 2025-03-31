@@ -854,7 +854,17 @@ input, select, textarea {
 
 @media (max-width: 480px) {
     .header-cta {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
+    }
+    
+    .header-cta .btn-outline {
         display: none;
+    }
+    
+    .theme-toggle {
+        margin-right: 0;
     }
     
     h1 {
