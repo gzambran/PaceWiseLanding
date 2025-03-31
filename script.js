@@ -1,10 +1,61 @@
-// PaceWise Landing Page Scripts
+function initLightbox() {
+    // Get the lightbox and its elements
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.querySelector('.close-lightbox');
+    
+    // Get all images with the lightbox-trigger class
+    const triggers = document.querySelectorAll('.lightbox-trigger');
+    
+    // Add click event to each trigger image
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            // Set the lightbox image source to the clicked image's source
+            // Replace the thumbnail version with the full-size version if needed
+            lightboxImg.src = this.src;
+            
+            // Display the lightbox
+            lightbox.style.display = 'block';
+            
+            // Prevent scrolling on the body while lightbox is open
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    // Close lightbox when clicking the close button
+    closeBtn.addEventListener('click', function() {
+        lightbox.style.display = 'none';
+        // Re-enable scrolling
+        document.body.style.overflow = '';
+    });
+    
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+            // Re-enable scrolling
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close lightbox with escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && lightbox.style.display === 'block') {
+            lightbox.style.display = 'none';
+            // Re-enable scrolling
+            document.body.style.overflow = '';
+        }
+    });
+}// PaceWise Landing Page Scripts
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize carousel
     initCarousel();
     
     // Initialize theme toggle
     initThemeToggle();
+    
+    // Initialize lightbox
+    initLightbox();
 });
 
 function initCarousel() {
