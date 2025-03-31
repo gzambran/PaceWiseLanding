@@ -345,7 +345,6 @@ header .container {
     align-items: center;
     position: relative;
     margin-top: 10px;
-    text-align: center;
 }
 
 /* Swiper specific styles */
@@ -415,11 +414,6 @@ header .container {
     font-weight: bold;
 }
 
-
-
-
-
-
 /* Phone mockup with straight edges */
 .phone {
     position: relative;
@@ -431,6 +425,25 @@ header .container {
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 10px 20px rgba(0, 0, 0, 0.1);
     margin: 0 auto;
     transition: all var(--animation-medium) ease;
+}
+
+/* Responsive sizing for phone mockup */
+@media (max-width: 992px) {
+    .phone {
+        width: 230px; /* Slightly smaller on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .phone {
+        width: 200px; /* Even smaller on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .phone {
+        width: 180px; /* Much smaller on mobile phones */
+    }
 }
 
 .phone-screen {
