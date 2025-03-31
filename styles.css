@@ -436,13 +436,13 @@ header .container {
 
 @media (max-width: 768px) {
     .phone {
-        width: 200px; /* Even smaller on tablets */
+        width: 240px; /* Adjusted size for tablets */
     }
 }
 
 @media (max-width: 480px) {
     .phone {
-        width: 180px; /* Much smaller on mobile phones */
+        width: 220px; /* Larger size for mobile phones */
     }
 }
 
