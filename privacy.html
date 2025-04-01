@@ -5,14 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | PaceWise</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dark-theme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- We're not using the main script.js since it includes carousel initialization -->
+    <!-- Instead, we'll include just the theme toggle functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            
+            // Check for saved theme preference or use system preference
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme) {
+                // Apply saved theme
+                body.setAttribute('data-theme', savedTheme);
+            } else {
+                // Check system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const initialTheme = prefersDark ? 'dark' : 'light';
+                body.setAttribute('data-theme', initialTheme);
+            }
+            
+            // Listen for system preference changes if no saved preference
+            if (!savedTheme) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    const newTheme = e.matches ? 'dark' : 'light';
+                    body.setAttribute('data-theme', newTheme);
+                });
+            }
+            
+            // Toggle theme when button is clicked
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                // Set the new theme with animation
+                body.classList.add('theme-transitioning');
+                body.setAttribute('data-theme', newTheme);
+                
+                // Remove transition class after animation completes
+                setTimeout(() => {
+                    body.classList.remove('theme-transitioning');
+                }, 300); // Match var(--animation-medium)
+                
+                // Save preference to localStorage
+                localStorage.setItem('theme', newTheme);
+            });
+        });
+    </script>
     <style>
         .privacy-container {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 24px;
+            margin: 80px auto;
+            padding: 40px 48px;
+            transition: all var(--animation-medium) ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .privacy-container {
+            background-color: var(--dark-mode-card-bg); 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
         
         .privacy-header {
@@ -22,6 +80,7 @@
         .privacy-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: var(--text-primary);
         }
         
         .effective-date {
@@ -32,6 +91,7 @@
         
         .privacy-section {
             margin-bottom: 40px;
+            transition: all var(--animation-medium) ease;
         }
         
         .privacy-section h2 {
@@ -65,9 +125,32 @@
         .back-link:hover {
             transform: translateX(-5px);
         }
+        
+        main {
+            position: relative;
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .privacy-container {
+                padding: 30px 24px;
+                margin: 40px auto;
+            }
+            
+            .privacy-header h1 {
+                font-size: 2rem;
+            }
+            
+            .privacy-section h2 {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
-<body>
+<body data-theme="light">
+    <!-- Background gradient element -->
+    <div class="bg-gradient"></div>
+    
     <header>
         <div class="container">
             <div class="logo">
@@ -75,13 +158,29 @@
                 <span>PaceWise</span>
             </div>
             <div class="header-cta">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                </button>
                 <a href="#" class="btn btn-outline">Coming to App Store</a>
             </div>
         </div>
     </header>
 
     <main>
-        <div class="privacy-container">
+        <div class="privacy-container enhanced-card">
             <div class="privacy-header">
                 <h1>Privacy Policy</h1>
                 <p class="effective-date">Effective Date: March 19, 2025</p>
@@ -146,5 +245,12 @@
             </div>
         </div>
     </footer>
+    <!-- Lightbox for enlarged images - matches main page structure -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <span class="close-lightbox">&times;</span>
+            <img id="lightbox-img" src="" alt="Enlarged screenshot">
+        </div>
+    </div>
 </body>
 </html>
