@@ -816,6 +816,35 @@ input, select, textarea {
     }
 }
 
+/* App Store badge styles */
+.app-store-badge {
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+.app-store-badge img {
+    height: 40px;
+    width: auto;
+}
+
+.badge-light {
+    display: block;
+}
+
+.badge-dark {
+    display: none;
+}
+
+/* Badge alignment adjustments */
+.hero-cta .app-store-badge,
+.cta-content .app-store-badge {
+    margin-top: 1rem;
+}
+
+.header-cta .app-store-badge {
+    margin-left: 1rem;
+}
+
 /* Theme transitions */
 .theme-transitioning * {
     transition-duration: var(--animation-medium) !important;

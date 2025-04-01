@@ -133,3 +133,12 @@
 [data-theme="dark"] .feature-content h3 {
     color: var(--primary-light);
 }
+
+/* Dark mode badge display */
+[data-theme="dark"] .badge-light {
+    display: none;
+}
+
+[data-theme="dark"] .badge-dark {
+    display: block;
+}
