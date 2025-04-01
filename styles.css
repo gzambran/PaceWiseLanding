@@ -263,6 +263,9 @@ header .container {
 .hero-text {
     font-size: 1.25rem;
     margin-bottom: 2.5rem;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-cta {
@@ -843,6 +846,14 @@ input, select, textarea {
         align-items: center;
         gap: 32px;
         text-align: center;
+    }
+    
+    .footer-content {
+        align-items: center;
+    }
+    
+    .footer-logo {
+        justify-content: center;
     }
     
     .footer-links {
