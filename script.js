@@ -1,3 +1,18 @@
+// PaceWise Landing Page Scripts
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize carousel
+    initCarousel();
+    
+    // Initialize theme toggle
+    initThemeToggle();
+    
+    // Initialize lightbox
+    initLightbox();
+    
+    // Initialize smooth scrolling
+    initSmoothScroll();
+});
+
 function initLightbox() {
     // Get the lightbox and its elements
     const lightbox = document.getElementById('lightbox');
@@ -46,20 +61,7 @@ function initLightbox() {
             document.body.style.overflow = '';
         }
     });
-}// PaceWise Landing Page Scripts
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize carousel
-    initCarousel();
-    
-    // Initialize theme toggle
-    initThemeToggle();
-    
-    // Initialize lightbox
-    initLightbox();
-    
-    // Initialize smooth scrolling
-    initSmoothScroll();
-});
+}
 
 function initSmoothScroll() {
     // Get all links that have hash links (anchor links)

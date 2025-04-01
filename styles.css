@@ -18,6 +18,10 @@
     --border: #E5E5E5;
     --success: #4CAF50;
     
+    /* Light mode gradient colors */
+    --light-gradient-top: #FFFFFF;
+    --light-gradient-bottom: #F5F7FA;
+    
     /* Animation durations */
     --animation-short: 0.15s;
     --animation-medium: 0.3s;
