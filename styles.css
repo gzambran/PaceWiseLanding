@@ -22,6 +22,11 @@
     --light-gradient-top: #FFFFFF;
     --light-gradient-bottom: #F5F7FA;
     
+    /* Dark mode colors (fallbacks) */
+    --dark-mode-bg: #1A1B1D;
+    --dark-mode-card-bg: #272A2B;
+    --dark-mode-border: #333;
+    
     /* Animation durations */
     --animation-short: 0.15s;
     --animation-medium: 0.3s;
@@ -752,18 +757,36 @@ input, select, textarea {
 }
 
 @media (max-width: 480px) {
+    /* Adjust header layout for mobile */
+    header .container {
+        padding: 0 16px; /* Slightly reduce padding for small screens */
+    }
+
+    .logo {
+        flex-shrink: 1; /* Allow logo to shrink a bit if needed */
+    }
+
+    .logo span {
+        font-size: 1.2rem; /* Slightly smaller text size on mobile */
+    }
+
     .header-cta {
         display: flex;
         justify-content: flex-end;
-        margin-right: 10px;
+        margin-right: 0; /* Remove the margin that was causing the overlap */
+        gap: 10px; /* Reduce the gap between theme toggle and app store badge */
     }
     
-    .header-cta .btn-outline {
-        display: none;
+    /* Keep app store badge visible on mobile */
+    .header-cta .app-store-badge img {
+        height: 32px;
     }
     
+    /* Make the theme toggle button slightly smaller on mobile */
     .theme-toggle {
-        margin-right: 0;
+        width: 32px;
+        height: 32px;
+        padding: 4px;
     }
     
     h1 {
