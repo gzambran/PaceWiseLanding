@@ -33,6 +33,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Accounts for fixed header */
 }
 
 body {
@@ -278,6 +279,10 @@ header .container {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.hero-app-screenshot {
+    transition: opacity 200ms ease;
 }
 
 .phone-wrapper {

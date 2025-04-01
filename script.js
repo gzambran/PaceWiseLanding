@@ -56,7 +56,63 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize lightbox
     initLightbox();
+    
+    // Initialize smooth scrolling
+    initSmoothScroll();
 });
+
+function initSmoothScroll() {
+    // Get all links that have hash links (anchor links)
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    
+    anchorLinks.forEach(link => {
+        // Skip links with no actual destination (e.g., just '#')
+        if (link.getAttribute('href') === '#') return;
+        
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Get the header height to offset the scroll position
+                const headerHeight = document.querySelector('header').offsetHeight;
+                
+                // Calculate scroll position with header offset
+                const scrollPosition = targetElement.offsetTop - headerHeight;
+                
+                // Custom smooth scrolling with animation
+                const startPosition = window.pageYOffset;
+                const distance = scrollPosition - startPosition;
+                const duration = 800; // milliseconds (slower for more noticeable effect)
+                let start = null;
+                
+                // Animation function
+                function step(timestamp) {
+                    if (!start) start = timestamp;
+                    const progress = timestamp - start;
+                    const percentage = Math.min(progress / duration, 1);
+                    
+                    // Easing function (ease-out cubic)
+                    const easing = 1 - Math.pow(1 - percentage, 3);
+                    
+                    window.scrollTo(0, startPosition + distance * easing);
+                    
+                    if (progress < duration) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        // Update URL hash after animation completes
+                        history.pushState(null, null, targetId);
+                    }
+                }
+                
+                // Start the animation
+                window.requestAnimationFrame(step);
+            }
+        });
+    });
+}
 
 function initCarousel() {
     // Initialize Swiper with external pagination element
@@ -137,58 +193,47 @@ function initThemeToggle() {
 }
 
 function updateScreenshots(theme) {
-    // Get all app screenshots
+    // Get all app screenshots including the hero screenshot
     const screenshots = document.querySelectorAll('.app-screenshot');
     
     screenshots.forEach(screenshot => {
         const src = screenshot.getAttribute('src');
+        let needsUpdate = false;
+        let newSrc = '';
         
-        if (theme === 'dark') {
-            // Switch to dark mode screenshots
-            if (!src.includes('-dark')) {
-                const darkSrc = src.replace('.png', '-dark.png');
+        // Check if we need to update this image
+        if (theme === 'dark' && !src.includes('-dark')) {
+            needsUpdate = true;
+            newSrc = src.replace('.png', '-dark.png');
+        } else if (theme === 'light' && src.includes('-dark')) {
+            needsUpdate = true;
+            newSrc = src.replace('-dark.png', '.png');
+        }
+        
+        // If we need to update the image, do it with preloading
+        if (needsUpdate) {
+            // Create a new Image to preload
+            const img = new Image();
+            img.onload = function() {
+                // Only swap the src after the new image has loaded
+                screenshot.classList.add('screenshot-fading');
                 
-                // Create a new Image to preload
-                const img = new Image();
-                img.onload = function() {
-                    // Only swap the src after the new image has loaded
-                    screenshot.classList.add('screenshot-fading');
+                // Set a timeout to match the fade-out transition
+                setTimeout(() => {
+                    screenshot.setAttribute('src', newSrc);
                     
-                    // Set a timeout to match the fade-out transition
+                    // Wait a bit before fading back in
                     setTimeout(() => {
-                        screenshot.setAttribute('src', darkSrc);
-                        
-                        // Wait a bit before fading back in
-                        setTimeout(() => {
-                            screenshot.classList.remove('screenshot-fading');
-                        }, 150);
+                        screenshot.classList.remove('screenshot-fading');
                     }, 150);
-                };
-                img.src = darkSrc;
-            }
-        } else {
-            // Switch to light mode screenshots
-            if (src.includes('-dark')) {
-                const lightSrc = src.replace('-dark.png', '.png');
-                
-                // Create a new Image to preload
-                const img = new Image();
-                img.onload = function() {
-                    // Only swap the src after the new image has loaded
-                    screenshot.classList.add('screenshot-fading');
-                    
-                    // Set a timeout to match the fade-out transition
-                    setTimeout(() => {
-                        screenshot.setAttribute('src', lightSrc);
-                        
-                        // Wait a bit before fading back in
-                        setTimeout(() => {
-                            screenshot.classList.remove('screenshot-fading');
-                        }, 150);
-                    }, 150);
-                };
-                img.src = lightSrc;
-            }
+                }, 150);
+            };
+            img.onerror = function() {
+                // If dark image doesn't exist yet (like for hero image initially),
+                // revert to the original image and don't show fading effect
+                console.log('Image not found: ' + newSrc);
+            };
+            img.src = newSrc;
         }
     });
 }
