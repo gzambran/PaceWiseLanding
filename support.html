@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support | PaceWise</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="PaceWise Support - Get help with the PaceWise running calculator app. Find answers to frequently asked questions and contact our support team.">
+    <link rel="canonical" href="https://pacewise.app/support.html">
+    
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pacewise.app/support.html">
+    <meta property="og:title" content="Support | PaceWise Running Calculator">
+    <meta property="og:description" content="Get help with the PaceWise running calculator app. Find answers to frequently asked questions and contact our support team.">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://pacewise.app/support.html">
+    <meta name="twitter:title" content="Support | PaceWise Running Calculator">
+    <meta name="twitter:description" content="Get help with the PaceWise running calculator app. Find answers to frequently asked questions and contact our support team.">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dark-theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- We're including just the theme toggle functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            
+            // Check for saved theme preference or use system preference
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme) {
+                // Apply saved theme
+                body.setAttribute('data-theme', savedTheme);
+            } else {
+                // Check system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const initialTheme = prefersDark ? 'dark' : 'light';
+                body.setAttribute('data-theme', initialTheme);
+            }
+            
+            // Listen for system preference changes if no saved preference
+            if (!savedTheme) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    const newTheme = e.matches ? 'dark' : 'light';
+                    body.setAttribute('data-theme', newTheme);
+                });
+            }
+            
+            // Toggle theme when button is clicked
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                // Set the new theme with animation
+                body.classList.add('theme-transitioning');
+                body.setAttribute('data-theme', newTheme);
+                
+                // Remove transition class after animation completes
+                setTimeout(() => {
+                    body.classList.remove('theme-transitioning');
+                }, 300); // Match var(--animation-medium)
+                
+                // Save preference to localStorage
+                localStorage.setItem('theme', newTheme);
+            });
+        });
+    </script>
+    <style>
+        .support-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 40px 48px;
+            transition: all var(--animation-medium) ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+        
+        [data-theme="dark"] .support-container {
+            background-color: var(--dark-mode-card-bg); 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .support-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .support-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .support-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+        
+        .support-section {
+            margin-bottom: 40px;
+            transition: all var(--animation-medium) ease;
+        }
+        
+        .support-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+        
+        .support-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        
+        .support-section p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .support-section strong {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 40px;
+            color: var(--primary);
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.2s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        
+        main {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-email {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 15px 0;
+            display: block;
+        }
+        
+        .response-time {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        
+        /* FAQ styling */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all var(--animation-medium) ease;
+        }
+        
+        [data-theme="dark"] .faq-item {
+            background-color: rgba(50, 50, 60, 0.3);
+            border-color: var(--dark-mode-border);
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        [data-theme="dark"] .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .faq-answer {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .version-info {
+            margin-top: 40px;
+            padding: 15px;
+            background-color: var(--bg-accent);
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+        
+        [data-theme="dark"] .version-info {
+            background-color: rgba(60, 60, 80, 0.3);
+        }
+        
+        .version-info p {
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .support-container {
+                padding: 30px 24px;
+                margin: 40px auto;
+            }
+            
+            .support-header h1 {
+                font-size: 2rem;
+            }
+            
+            .support-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .contact-email {
+                font-size: 1.2rem;
+            }
+            
+            .faq-item {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Background gradient element -->
+    <div class="bg-gradient"></div>
+    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.svg" alt="PaceWise">
+                <span>PaceWise</span>
+            </div>
+            <div class="header-cta">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                </button>
+                <a href="#" class="app-store-badge">
+                    <img src="Apple_Badge_Black.svg" alt="Download on the App Store" class="badge-light">
+                    <img src="Apple_Badge_White.svg" alt="Download on the App Store" class="badge-dark">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="support-container enhanced-card">
+            <div class="support-header">
+                <h1>PaceWise Support</h1>
+                <p>Need help with the app or have questions? We're here to help.</p>
+            </div>
+            
+            <div class="support-section">
+                <h2>Contact</h2>
+                <p>If you're running into issues or have feedback, email us at:</p>
+                <a href="mailto:support@pacewise.app" class="contact-email">support@pacewise.app</a>
+            </div>
+            
+            <div class="support-section">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">Q: How do I save a calculation?</div>
+                        <div class="faq-answer">
+                            After viewing your splits or training paces, tap the <strong>menu button (•••)</strong> and select <strong>Save</strong>. Saved calculations can be revisited anytime.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Q: What kind of training paces can I calculate?</div>
+                        <div class="faq-answer">
+                            PaceWise calculates interval training paces based on your goal time—covering reps from 200m to 2000m. These are great for track sessions and structured speed workouts. Support for tempo, threshold, and long run pacing is coming soon.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Q: Can I log or track workouts in the app?</div>
+                        <div class="faq-answer">
+                            No—PaceWise is a planning and reference tool. It's designed to help you calculate pacing for workouts and races, not to log completed runs.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Q: What else can I calculate?</div>
+                        <div class="faq-answer">
+                            You can also calculate race splits, treadmill speed equivalents, equivalent performance times across distances, and age-graded results.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Q: Is PaceWise meant to be used during a run?</div>
+                        <div class="faq-answer">
+                            No—PaceWise is a planning and reference tool, not a live tracking app. It's designed to help you prepare for your workouts or races by calculating pacing details ahead of time. You can save calculations to review later, but the app is not intended for use while actively running.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Q: Does PaceWise include GPS tracking or sync with other apps?</div>
+                        <div class="faq-answer">
+                            PaceWise is focused purely on helping you calculate and reference pace-related data. We don't integrate with GPS or fitness platforms like Strava, Garmin, or Apple Health.
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Q: Can I use custom distances or rep lengths?</div>
+                        <div class="faq-answer">
+                            Currently, interval training paces are provided for standard rep distances (200m to 2000m), and race splits can be viewed in miles, kilometers, 5Ks, and 5-mile chunks. Support for more flexible/custom intervals is something we're exploring for future updates.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="version-info">
+                    <p><strong>Version Info</strong></p>
+                    <p>• Current App Version: 1.0</p>
+                    <p>• Last Updated: April 2025</p>
+                </div>
+            </div>
+            
+            <a href="index.html" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="PaceWise">
+                    <span>PaceWise</span>
+                </div>
+                <p>&copy; 2025 PaceWise. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="support.html">Support</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
