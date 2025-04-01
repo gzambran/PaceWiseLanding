@@ -257,6 +257,15 @@ header .container {
     border-radius: 10px;
 }
 
+.subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+}
+
 .tagline {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.2rem;
@@ -889,6 +898,10 @@ input, select, textarea {
     
     h1 {
         font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
     }
 
     .tagline {
