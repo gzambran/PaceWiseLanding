@@ -29,8 +29,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.2.0/swiper-bundle.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.2.0/swiper-bundle.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 <body data-theme="light">
@@ -99,78 +97,96 @@
                 <h2>See PaceWise in Action</h2>
                 <p>Designed for structured workouts and race day planning</p>
             </div>
-            <div class="carousel-container enhanced-card">
-                <div class="swiper-container">
-                    <div class="swiper screenshot-carousel">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="phone">
-                                    <div class="phone-screen">
-                                        <img src="app-screenshot-1.png" alt="PaceWise App in action" class="app-screenshot lightbox-trigger">
-                                    </div>
-                                </div>
-                                <div class="slide-caption">
-                                    <p>Calculate your race pace for any distance</p>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="phone">
-                                    <div class="phone-screen">
-                                        <img src="app-screenshot-2.png" alt="PaceWise App in action" class="app-screenshot lightbox-trigger">
-                                    </div>
-                                </div>
-                                <div class="slide-caption">
-                                    <p>View mile or kilometer splits for your race</p>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="phone">
-                                    <div class="phone-screen">
-                                        <img src="app-screenshot-3.png" alt="PaceWise App in action" class="app-screenshot lightbox-trigger">
-                                    </div>
-                                </div>
-                                <div class="slide-caption">
-                                    <p>Get track interval paces for workouts</p>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="phone">
-                                    <div class="phone-screen">
-                                        <img src="app-screenshot-4.png" alt="PaceWise App in action" class="app-screenshot lightbox-trigger">
-                                    </div>
-                                </div>
-                                <div class="slide-caption">
-                                    <p>Convert pace to treadmill speed settings</p>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="phone">
-                                    <div class="phone-screen">
-                                        <img src="app-screenshot-5.png" alt="PaceWise App in action" class="app-screenshot lightbox-trigger">
-                                    </div>
-                                </div>
-                                <div class="slide-caption">
-                                    <p>Calculate equivalent race performances</p>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="phone">
-                                    <div class="phone-screen">
-                                        <img src="app-screenshot-6.png" alt="PaceWise App in action" class="app-screenshot lightbox-trigger">
-                                    </div>
-                                </div>
-                                <div class="slide-caption">
-                                    <p>Save and share your pace calculations</p>
-                                </div>
+            
+            <!-- Feature sections with alternating layout -->
+            <div class="feature-sections">
+                <!-- Feature 1: Plan any run -->
+                <div class="feature-section enhanced-card">
+                    <div class="feature-content">
+                        <h3>Plan any run in seconds</h3>
+                        <p>Quickly calculate your pace per mile or kilometer by entering your distance and time. Whether you're training for a 5K or a marathon, get instant results—including treadmill speed at a 1% incline.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="app-screenshot-1.png" alt="Plan any run in seconds" class="app-screenshot lightbox-trigger">
                             </div>
                         </div>
-                        <!-- Navigation arrows inside swiper -->
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
                     </div>
-                    <!-- Pagination in its own container after the slider -->
-                    <div class="pagination-container">
-                        <div class="swiper-pagination"></div>
+                </div>
+                
+                <!-- Feature 2: Know your finish time -->
+                <div class="feature-section reverse enhanced-card">
+                    <div class="feature-content">
+                        <h3>Know your finish time before you run</h3>
+                        <p>Set your goal pace, choose a distance, and let PaceWise calculate your total time. Perfect for setting targets or reverse-engineering race day goals.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="app-screenshot-2.png" alt="Know your finish time before you run" class="app-screenshot lightbox-trigger">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 3: Visualize your splits -->
+                <div class="feature-section enhanced-card">
+                    <div class="feature-content">
+                        <h3>Visualize your splits—your way</h3>
+                        <p>See exactly how your effort breaks down with splits by mile, kilometer, 5K, or 5-mile segments. Ideal for long runs, workouts, or race planning.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="app-screenshot-3.png" alt="Visualize your splits your way" class="app-screenshot lightbox-trigger">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 4: Nail your intervals -->
+                <div class="feature-section reverse enhanced-card">
+                    <div class="feature-content">
+                        <h3>Nail your intervals with confidence</h3>
+                        <p>Get precise pacing for structured workouts—200m to 2000m intervals—based on your target time. No spreadsheets, no guesswork.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="app-screenshot-4.png" alt="Nail your intervals with confidence" class="app-screenshot lightbox-trigger">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 5: Estimate race results -->
+                <div class="feature-section enhanced-card">
+                    <div class="feature-content">
+                        <h3>Estimate race results across distances</h3>
+                        <p>Use your performance at one distance to predict results at another. Great for planning tune-up races or checking fitness without overtraining.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="app-screenshot-5.png" alt="Estimate race results across distances" class="app-screenshot lightbox-trigger">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feature 6: Benchmark with age grading -->
+                <div class="feature-section reverse enhanced-card">
+                    <div class="feature-content">
+                        <h3>Benchmark with age grading</h3>
+                        <p>See how your time stacks up across age groups with WMA-based age grading. A simple way to measure performance and progress.</p>
+                    </div>
+                    <div class="feature-image">
+                        <div class="phone">
+                            <div class="phone-screen">
+                                <img src="app-screenshot-6.png" alt="Benchmark with age grading" class="app-screenshot lightbox-trigger">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

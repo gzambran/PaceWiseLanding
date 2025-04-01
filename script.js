@@ -1,8 +1,5 @@
 // PaceWise Landing Page Scripts
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize carousel
-    initCarousel();
-    
+document.addEventListener('DOMContentLoaded', function() {    
     // Initialize theme toggle
     initThemeToggle();
     
@@ -11,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize smooth scrolling
     initSmoothScroll();
+    
+    // Initialize scroll animations for feature sections
+    initFeatureSections();
 });
 
 function initLightbox() {
@@ -84,69 +84,52 @@ function initSmoothScroll() {
                 // Calculate scroll position with header offset
                 const scrollPosition = targetElement.offsetTop - headerHeight;
                 
-                // Custom smooth scrolling with animation
+                // Improved smooth scrolling with better easing
                 const startPosition = window.pageYOffset;
                 const distance = scrollPosition - startPosition;
-                const duration = 800; // milliseconds (slower for more noticeable effect)
-                let start = null;
+                const duration = 1000; // Slightly longer duration
                 
-                // Animation function
-                function step(timestamp) {
-                    if (!start) start = timestamp;
-                    const progress = timestamp - start;
-                    const percentage = Math.min(progress / duration, 1);
+                // Start time for animation
+                let startTime = null;
+                
+                // Animation function with improved easing
+                function animate(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const progress = Math.min(timeElapsed / duration, 1);
                     
-                    // Easing function (ease-out cubic)
-                    const easing = 1 - Math.pow(1 - percentage, 3);
+                    // Improved easing function - Sine easing
+                    // This provides a much gentler deceleration that won't snap
+                    const easing = 0.5 - 0.5 * Math.cos(progress * Math.PI);
                     
                     window.scrollTo(0, startPosition + distance * easing);
                     
-                    if (progress < duration) {
-                        window.requestAnimationFrame(step);
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animate);
                     } else {
+                        // Ensure we end exactly at the right position
+                        window.scrollTo(0, scrollPosition);
+                        
                         // Update URL hash after animation completes
                         history.pushState(null, null, targetId);
                     }
                 }
                 
                 // Start the animation
-                window.requestAnimationFrame(step);
+                requestAnimationFrame(animate);
             }
         });
-    });
-}
-
-function initCarousel() {
-    // Initialize Swiper with external pagination element
-    const swiper = new Swiper('.screenshot-carousel', {
-        // Basic settings
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        speed: 400,
-        centeredSlides: true,
-        
-        // Add pagination (dots) - using the external element
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        
-        // Use Swiper's built-in navigation
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        
-        // Improve performance
-        preloadImages: true,
-        updateOnImagesReady: true,
     });
 }
 
 function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
+    
+    // Ensure the body has a data-theme attribute set
+    if (!body.hasAttribute('data-theme')) {
+        body.setAttribute('data-theme', 'light');
+    }
     
     // Check for saved theme preference or use system preference
     const savedTheme = localStorage.getItem('theme');
@@ -233,9 +216,45 @@ function updateScreenshots(theme) {
             img.onerror = function() {
                 // If dark image doesn't exist yet (like for hero image initially),
                 // revert to the original image and don't show fading effect
-                console.log('Image not found: ' + newSrc);
             };
             img.src = newSrc;
         }
     });
+}
+
+function initFeatureSections() {
+    // Check if IntersectionObserver is supported
+    if ('IntersectionObserver' in window) {
+        const featureSections = document.querySelectorAll('.feature-section');
+        
+        // Remove any existing animate-in classes to allow the observer to add them
+        featureSections.forEach(section => {
+            section.classList.remove('animate-in');
+        });
+        
+        const options = {
+            root: null, // viewport
+            rootMargin: '-50px', // Only trigger when element is 50px into the viewport
+            threshold: 0.25 // 25% of the element must be visible (increased from 15%)
+        };
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, options);
+        
+        // Observe each feature section
+        featureSections.forEach(section => {
+            observer.observe(section);
+        });
+    } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        document.querySelectorAll('.feature-section').forEach(section => {
+            section.classList.add('animate-in');
+        });
+    }
 }

@@ -55,27 +55,7 @@
     background-color: #000;
 }
 
-/* Dark mode pagination and captions */
-[data-theme="dark"] .swiper-pagination-bullet {
-    background-color: var(--dark-mode-border);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
 
-[data-theme="dark"] .swiper-pagination-bullet-active {
-    background-color: var(--primary);
-    border-color: var(--primary-light);
-}
-
-/* Dark mode caption styling */
-[data-theme="dark"] .slide-caption p {
-    color: var(--primary-light);
-}
-
-/* Dark mode navigation buttons */
-[data-theme="dark"] .swiper-button-prev, 
-[data-theme="dark"] .swiper-button-next {
-    color: var(--primary-light);
-}
 
 [data-theme="dark"] .btn-secondary {
     background-color: var(--dark-mode-card-bg);
@@ -140,4 +120,16 @@
 
 [data-theme="dark"] .logo span {
     color: var(--dark-mode-text-primary);
+}
+
+/* Dark mode for feature sections - improved contrast */
+[data-theme="dark"] .feature-section {
+    background-color: rgba(45, 49, 57, 0.95); /* Slightly lighter than the dark mode background */
+    border: 1px solid rgba(100, 100, 120, 0.3); /* Subtle border for definition */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 
+                0 0 30px rgba(82, 165, 255, 0.05); /* Shadow with subtle primary color glow */
+}
+
+[data-theme="dark"] .feature-content h3 {
+    color: var(--primary-light);
 }
