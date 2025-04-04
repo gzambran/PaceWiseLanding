@@ -189,10 +189,10 @@ function updateScreenshots(theme) {
         // Check if we need to update this image
         if (theme === 'dark' && !src.includes('-dark')) {
             needsUpdate = true;
-            newSrc = src.replace('.png', '-dark.png');
+            newSrc = src.replace('.webp', '-dark.webp');
         } else if (theme === 'light' && src.includes('-dark')) {
             needsUpdate = true;
-            newSrc = src.replace('-dark.png', '.png');
+            newSrc = src.replace('-dark.webp', '.webp');
         }
         
         // If we need to update the image, do it with preloading
