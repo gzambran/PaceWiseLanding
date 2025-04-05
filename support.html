@@ -21,58 +21,23 @@
     <meta name="twitter:title" content="Support | PaceWise Running Calculator">
     <meta name="twitter:description" content="Get help with the PaceWise running calculator app. Find answers to frequently asked questions and contact our support team.">
     
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        // Immediately apply theme before any rendering
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', initialTheme);
+        })();
+    </script>
+    
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dark-theme.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- We're including just the theme toggle functionality -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize theme toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
-            
-            // Check for saved theme preference or use system preference
-            const savedTheme = localStorage.getItem('theme');
-            
-            if (savedTheme) {
-                // Apply saved theme
-                body.setAttribute('data-theme', savedTheme);
-            } else {
-                // Check system preference
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const initialTheme = prefersDark ? 'dark' : 'light';
-                body.setAttribute('data-theme', initialTheme);
-            }
-            
-            // Listen for system preference changes if no saved preference
-            if (!savedTheme) {
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                    const newTheme = e.matches ? 'dark' : 'light';
-                    body.setAttribute('data-theme', newTheme);
-                });
-            }
-            
-            // Toggle theme when button is clicked
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = body.getAttribute('data-theme');
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                
-                // Set the new theme with animation
-                body.classList.add('theme-transitioning');
-                body.setAttribute('data-theme', newTheme);
-                
-                // Remove transition class after animation completes
-                setTimeout(() => {
-                    body.classList.remove('theme-transitioning');
-                }, 300); // Match var(--animation-medium)
-                
-                // Save preference to localStorage
-                localStorage.setItem('theme', newTheme);
-            });
-        });
-    </script>
+    <!-- Load shared components -->
+    <script src="components/shared-components.js"></script>
     <style>
         .support-container {
             max-width: 800px;
@@ -255,36 +220,8 @@
     <!-- Background gradient element -->
     <div class="bg-gradient"></div>
     
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="logo.svg" alt="PaceWise">
-                <span>PaceWise</span>
-            </div>
-            <div class="header-cta">
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2"></path>
-                        <path d="M12 20v2"></path>
-                        <path d="m4.93 4.93 1.41 1.41"></path>
-                        <path d="m17.66 17.66 1.41 1.41"></path>
-                        <path d="M2 12h2"></path>
-                        <path d="M20 12h2"></path>
-                        <path d="m6.34 17.66-1.41 1.41"></path>
-                        <path d="m19.07 4.93-1.41 1.41"></path>
-                    </svg>
-                </button>
-                <a href="https://apps.apple.com/app/id6743449540" class="app-store-badge">
-                    <img src="Apple_Badge_Black.svg" alt="Download on the App Store" class="badge-light">
-                    <img src="Apple_Badge_White.svg" alt="Download on the App Store" class="badge-dark">
-                </a>
-            </div>
-        </div>
-    </header>
+    <!-- Site Header Component -->
+    <site-header></site-header>
 
     <main>
         <div class="support-container enhanced-card">
@@ -367,20 +304,7 @@
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="logo.svg" alt="PaceWise">
-                    <span>PaceWise</span>
-                </div>
-                <p>&copy; 2025 PaceWise. All rights reserved.</p>
-            </div>
-            <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
+    <!-- Site Footer Component -->
+    <site-footer></site-footer>
 </body>
 </html>

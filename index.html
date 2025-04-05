@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaceWise | Running Calculator for Pace, Splits & Race Performance</title>
     
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        // Immediately apply theme before any rendering
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', initialTheme);
+        })();
+    </script>
+    
     <!-- Primary Meta Tags -->
     <meta name="description" content="PaceWise is the ultimate running calculator app for runners. Calculate pace, race splits, and training intervals for smarter workouts and better race performance.">
     <meta name="keywords" content="running calculator, pace calculator, race splits, running app, runner's app, training intervals">
@@ -25,46 +36,48 @@
     <meta name="twitter:image" content="https://pacewise.app/app-screenshot.webp">
     
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dark-theme.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script>
+        // Immediately apply theme to prevent flicker
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', initialTheme);
+            
+            // Preload all theme-dependent images
+            window.addEventListener('DOMContentLoaded', function() {
+                if (initialTheme === 'dark') {
+                    document.querySelectorAll('img[data-dark-src]').forEach(function(img) {
+                        const darkSrc = img.getAttribute('data-dark-src');
+                        if (darkSrc) {
+                            // Set the src to dark version immediately
+                            img.setAttribute('src', darkSrc);
+                        }
+                    });
+                }
+            });
+        })();
+    </script>
+    
+    <!-- Preload critical dark mode assets -->
+    <link rel="preload" href="images/app-screenshot-dark.webp" as="image" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="Apple_Badge_White.svg" as="image" media="(prefers-color-scheme: dark)">
+    <!-- Resource hints for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Load shared components -->
+    <script src="components/shared-components.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body data-theme="light">
     <!-- Background gradient element -->
     <div class="bg-gradient"></div>
     
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="logo.svg" alt="PaceWise">
-                <span>PaceWise</span>
-            </div>
-            <div class="header-cta">
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2"></path>
-                        <path d="M12 20v2"></path>
-                        <path d="m4.93 4.93 1.41 1.41"></path>
-                        <path d="m17.66 17.66 1.41 1.41"></path>
-                        <path d="M2 12h2"></path>
-                        <path d="M20 12h2"></path>
-                        <path d="m6.34 17.66-1.41 1.41"></path>
-                        <path d="m19.07 4.93-1.41 1.41"></path>
-                    </svg>
-                </button>
-                <a href="https://apps.apple.com/app/id6743449540" class="app-store-badge">
-                    <img src="Apple_Badge_Black.svg" alt="Download on the App Store" class="badge-light">
-                    <img src="Apple_Badge_White.svg" alt="Download on the App Store" class="badge-dark">
-                </a>
-            </div>
-        </div>
-    </header>
+    <!-- Site Header Component -->
+    <site-header></site-header>
 
     <section class="hero">
         <div class="container">
@@ -80,7 +93,7 @@
                 <div class="phone-wrapper">
                     <div class="phone">
                         <div class="phone-screen">
-                            <img src="images/app-screenshot.webp" alt="PaceWise App in action" class="app-screenshot hero-app-screenshot">
+                            <img src="images/app-screenshot.webp" alt="PaceWise App in action" class="app-screenshot hero-app-screenshot" data-dark-src="images/app-screenshot-dark.webp" width="270" height="584" decoding="async">
                         </div>
                     </div>
                 </div>
@@ -107,7 +120,7 @@
                     <div class="feature-image">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img src="images/app-screenshot-1.webp" alt="Plan any run in seconds" class="app-screenshot lightbox-trigger">
+                                <img src="images/app-screenshot-1.webp" alt="Plan any run in seconds" class="app-screenshot lightbox-trigger" data-dark-src="images/app-screenshot-1-dark.webp" loading="lazy" width="270" height="584">
                             </div>
                         </div>
                     </div>
@@ -122,7 +135,7 @@
                     <div class="feature-image">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img src="images/app-screenshot-2.webp" alt="Know your finish time before you run" class="app-screenshot lightbox-trigger">
+                                <img src="images/app-screenshot-2.webp" alt="Know your finish time before you run" class="app-screenshot lightbox-trigger" data-dark-src="images/app-screenshot-2-dark.webp" loading="lazy" width="270" height="584">
                             </div>
                         </div>
                     </div>
@@ -137,7 +150,7 @@
                     <div class="feature-image">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img src="images/app-screenshot-3.webp" alt="Visualize your splits" class="app-screenshot lightbox-trigger">
+                                <img src="images/app-screenshot-3.webp" alt="Visualize your splits" class="app-screenshot lightbox-trigger" data-dark-src="images/app-screenshot-3-dark.webp" loading="lazy" width="270" height="584">
                             </div>
                         </div>
                     </div>
@@ -152,7 +165,7 @@
                     <div class="feature-image">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img src="images/app-screenshot-4.webp" alt="Nail your intervals" class="app-screenshot lightbox-trigger">
+                                <img src="images/app-screenshot-4.webp" alt="Nail your intervals" class="app-screenshot lightbox-trigger" data-dark-src="images/app-screenshot-4-dark.webp" loading="lazy" width="270" height="584">
                             </div>
                         </div>
                     </div>
@@ -167,7 +180,7 @@
                     <div class="feature-image">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img src="images/app-screenshot-5.webp" alt="Estimate race results" class="app-screenshot lightbox-trigger">
+                                <img src="images/app-screenshot-5.webp" alt="Estimate race results" class="app-screenshot lightbox-trigger" data-dark-src="images/app-screenshot-5-dark.webp" loading="lazy" width="270" height="584">
                             </div>
                         </div>
                     </div>
@@ -182,7 +195,7 @@
                     <div class="feature-image">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img src="images/app-screenshot-6.webp" alt="Age grading" class="app-screenshot lightbox-trigger">
+                                <img src="images/app-screenshot-6.webp" alt="Age grading" class="app-screenshot lightbox-trigger" data-dark-src="images/app-screenshot-6-dark.webp" loading="lazy" width="270" height="584">
                             </div>
                         </div>
                     </div>
@@ -197,7 +210,7 @@
                     <div class="feature-image">
                         <div class="phone">
                             <div class="phone-screen">
-                                <img src="images/app-screenshot-7.webp" alt="Save and share" class="app-screenshot lightbox-trigger">
+                                <img src="images/app-screenshot-7.webp" alt="Save and share" class="app-screenshot lightbox-trigger" data-dark-src="images/app-screenshot-7-dark.webp" loading="lazy" width="270" height="584">
                             </div>
                         </div>
                     </div>
@@ -285,34 +298,20 @@
             <div class="cta-content">
                 <h2>Start Running Smarter</h2>
                 <p>Your perfect running calculator awaits.</p>
-                <a href="#" class="app-store-badge">
-                    <img src="Apple_Badge_Black.svg" alt="Download on the App Store" class="badge-light">
-                    <img src="Apple_Badge_White.svg" alt="Download on the App Store" class="badge-dark">
+                <a href="https://apps.apple.com/app/id6743449540" class="app-store-badge">
+                    <img src="Apple_Badge_Black.svg" alt="Download on the App Store" data-dark-src="Apple_Badge_White.svg">
                 </a>
             </div>
         </div>
         <div class="cta-bg"></div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="logo.svg" alt="PaceWise">
-                    <span>PaceWise</span>
-                </div>
-                <p>&copy; 2025 PaceWise. All rights reserved.</p>
-            </div>
-            <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="support.html">Support</a>
-            </div>
-        </div>
-    </footer>
+    <!-- Site Footer Component -->
+    <site-footer></site-footer>
     <!-- Lightbox for enlarged images -->
-    <div id="lightbox" class="lightbox">
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox" hidden>
         <div class="lightbox-content">
-            <span class="close-lightbox">&times;</span>
+            <span class="close-lightbox" role="button" tabindex="0" aria-label="Close lightbox">&times;</span>
             <img id="lightbox-img" src="" alt="Enlarged screenshot">
         </div>
     </div>

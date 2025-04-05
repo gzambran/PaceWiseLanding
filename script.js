@@ -1,7 +1,10 @@
 // PaceWise Landing Page Scripts
 document.addEventListener('DOMContentLoaded', function() {    
-    // Initialize theme toggle
-    initThemeToggle();
+    // Apply initial theme as early as possible to prevent flicker
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    document.body.setAttribute('data-theme', initialTheme);
     
     // Initialize lightbox
     initLightbox();
@@ -22,43 +25,83 @@ function initLightbox() {
     // Get all images with the lightbox-trigger class
     const triggers = document.querySelectorAll('.lightbox-trigger');
     
+    // Function to open lightbox
+    function openLightbox(src) {
+        // Set the lightbox image source
+        lightboxImg.src = src;
+        
+        // Display the lightbox
+        lightbox.removeAttribute('hidden');
+        lightbox.style.display = 'block';
+        
+        // Prevent scrolling on the body while lightbox is open
+        document.body.style.overflow = 'hidden';
+        
+        // Focus the close button for accessibility
+        setTimeout(() => {
+            closeBtn.focus();
+        }, 100);
+    }
+    
+    // Function to close lightbox
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+        // Re-enable scrolling
+        document.body.style.overflow = '';
+        // Return focus to the trigger that was clicked
+        if (lastFocusedTrigger) {
+            lastFocusedTrigger.focus();
+        }
+    }
+    
+    // Keep track of which trigger was last clicked
+    let lastFocusedTrigger = null;
+    
     // Add click event to each trigger image
     triggers.forEach(trigger => {
+        // Make triggers focusable
+        trigger.setAttribute('tabindex', '0');
+        trigger.setAttribute('role', 'button');
+        trigger.setAttribute('aria-label', 'Open ' + trigger.alt + ' in lightbox');
+        
+        // Handle click events
         trigger.addEventListener('click', function() {
-            // Set the lightbox image source to the clicked image's source
-            // Replace the thumbnail version with the full-size version if needed
-            lightboxImg.src = this.src;
-            
-            // Display the lightbox
-            lightbox.style.display = 'block';
-            
-            // Prevent scrolling on the body while lightbox is open
-            document.body.style.overflow = 'hidden';
+            lastFocusedTrigger = this;
+            openLightbox(this.src);
+        });
+        
+        // Handle keyboard events
+        trigger.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                lastFocusedTrigger = this;
+                openLightbox(this.src);
+            }
         });
     });
     
     // Close lightbox when clicking the close button
-    closeBtn.addEventListener('click', function() {
-        lightbox.style.display = 'none';
-        // Re-enable scrolling
-        document.body.style.overflow = '';
+    closeBtn.addEventListener('click', closeLightbox);
+    
+    // Handle keyboard for close button
+    closeBtn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            closeLightbox();
+        }
     });
     
     // Close lightbox when clicking outside the image
     lightbox.addEventListener('click', function(e) {
         if (e.target === lightbox) {
-            lightbox.style.display = 'none';
-            // Re-enable scrolling
-            document.body.style.overflow = '';
+            closeLightbox();
         }
     });
     
     // Close lightbox with escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && lightbox.style.display === 'block') {
-            lightbox.style.display = 'none';
-            // Re-enable scrolling
-            document.body.style.overflow = '';
+            closeLightbox();
         }
     });
 }
@@ -122,104 +165,11 @@ function initSmoothScroll() {
     });
 }
 
-function initThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    
-    // Ensure the body has a data-theme attribute set
-    if (!body.hasAttribute('data-theme')) {
-        body.setAttribute('data-theme', 'light');
-    }
-    
-    // Check for saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    if (savedTheme) {
-        // Apply saved theme
-        body.setAttribute('data-theme', savedTheme);
-        updateScreenshots(savedTheme);
-    } else {
-        // Check system preference
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialTheme = prefersDark ? 'dark' : 'light';
-        body.setAttribute('data-theme', initialTheme);
-        updateScreenshots(initialTheme);
-    }
-    
-    // Listen for system preference changes if no saved preference
-    if (!savedTheme) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            const newTheme = e.matches ? 'dark' : 'light';
-            body.setAttribute('data-theme', newTheme);
-            updateScreenshots(newTheme);
-        });
-    }
-    
-    // Toggle theme when button is clicked
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = body.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
-        // Set the new theme with animation
-        body.classList.add('theme-transitioning');
-        body.setAttribute('data-theme', newTheme);
-        
-        // Remove transition class after animation completes
-        setTimeout(() => {
-            body.classList.remove('theme-transitioning');
-        }, 300); // Match var(--animation-medium)
-        
-        // Save preference to localStorage
-        localStorage.setItem('theme', newTheme);
-        
-        // Update screenshots based on theme
-        updateScreenshots(newTheme);
-    });
-}
+
 
 function updateScreenshots(theme) {
-    // Get all app screenshots including the hero screenshot
-    const screenshots = document.querySelectorAll('.app-screenshot');
-    
-    screenshots.forEach(screenshot => {
-        const src = screenshot.getAttribute('src');
-        let needsUpdate = false;
-        let newSrc = '';
-        
-        // Check if we need to update this image
-        if (theme === 'dark' && !src.includes('-dark')) {
-            needsUpdate = true;
-            newSrc = src.replace('.webp', '-dark.webp');
-        } else if (theme === 'light' && src.includes('-dark')) {
-            needsUpdate = true;
-            newSrc = src.replace('-dark.webp', '.webp');
-        }
-        
-        // If we need to update the image, do it with preloading
-        if (needsUpdate) {
-            // Create a new Image to preload
-            const img = new Image();
-            img.onload = function() {
-                // Only swap the src after the new image has loaded
-                screenshot.classList.add('screenshot-fading');
-                
-                // Set a timeout to match the fade-out transition
-                setTimeout(() => {
-                    screenshot.setAttribute('src', newSrc);
-                    
-                    // Wait a bit before fading back in
-                    setTimeout(() => {
-                        screenshot.classList.remove('screenshot-fading');
-                    }, 150);
-                }, 150);
-            };
-            img.onerror = function() {
-                // If dark image doesn't exist yet (like for hero image initially),
-                // revert to the original image and don't show fading effect
-            };
-            img.src = newSrc;
-        }
-    });
+    // Now handled by the shared components
+    // This function is kept for backward compatibility
 }
 
 function initFeatureSections() {

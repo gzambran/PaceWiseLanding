@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # PaceWise Landing Page - Claude Guide
 
 ## Project Structure
@@ -16,21 +20,28 @@
 - Use semantic HTML5 elements (header, main, section, footer)
 - 4-space indentation
 - BEM-style class naming: `block__element--modifier`
+- Include proper ARIA attributes for accessibility
 
 ### CSS
 - Mobile-first approach with media queries for larger screens
-- Use CSS variables for theming (colors, spacing)
-- Separate dark-theme.css for dark mode styles
+- Use CSS variables for theming and consistent spacing
+- Dark mode support via data-theme attributes
 - Organize by component with section comments
 
 ### JavaScript
 - Functional programming style with descriptive names
 - Error handling for asynchronous operations
 - 4-space indentation
-- Toggle/interactive features support both mouse and keyboard navigation
+- Support for both mouse and keyboard navigation
 - System preference detection for dark/light mode
+- Comment functions with brief descriptions
 
-### General
+### Images
 - Optimize images for both themes (separate dark/light versions)
-- Maintain responsive design across all screen sizes
-- Keep animation effects subtle and performance-optimized
+- Use data-dark-src attribute for theme-specific images
+- Use webp format for better performance
+
+### Accessibility
+- Include proper focus states and keyboard navigation
+- Respect prefers-reduced-motion system preference
+- Maintain appropriate color contrast in both themes
